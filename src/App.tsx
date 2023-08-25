@@ -8,19 +8,9 @@ import ColorPicker from "./components/ColorPicker";
 import { IPlayer } from "./types";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import { fetchData } from "./utils/fetchData";
 
 const URL = "https://www.balldontlie.io/api/v1/players";
-
-const fetchPlayersData = async () => {
-  try {
-    const response = await fetch(URL);
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error("Failed to fetch players:", error);
-    return [];
-  }
-};
 
 const App = () => {
   const [players, setPlayers] = useState<IPlayer[]>([]);
@@ -29,7 +19,7 @@ const App = () => {
 
   useEffect(() => {
     const initializePlayers = async () => {
-      const playersData = await fetchPlayersData();
+      const playersData = await fetchData(URL);
       setPlayers(playersData);
     };
 
