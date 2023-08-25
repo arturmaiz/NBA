@@ -2,10 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import PlayersList from "./components/PlayersList";
 import SearchInput from "./components/SearchInput";
 import FavoritesProvider from "./context/FavoritesContext";
+import ColorPickerProvider from "./context/ColorPickerContext";
 import FavoritePlayers from "./components/FavoritePlayers";
 import ColorPicker from "./components/ColorPicker";
-import Navbar from "./layout/Navbar";
 import { IPlayer } from "./types";
+import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 const URL = "https://www.balldontlie.io/api/v1/players";
 
@@ -46,25 +48,28 @@ const App = () => {
 
   return (
     <FavoritesProvider>
-      <Navbar />
-      <div className="container">
-        <div className="row">
-          <div className="col">
-            <SearchInput
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
-            <ColorPicker />
-            {players && players.length === 0 ? (
-              "Loading Players..."
-            ) : (
-              <PlayersList filteredPlayers={filteredPlayers} />
-            )}
-          </div>
-          <div className="col">
-            <FavoritePlayers />
-          </div>
+      <div className="py-4 px-4 mx-auto max-w-screen-xl lg:py-1 bg-dark dark:bg-gray-900">
+        <Header />
+        <div className="grid md:grid-cols-2 gap-8">
+          <ColorPickerProvider>
+            <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 md:p-12 max-h-[627px] overflow-y-auto">
+              <ColorPicker />
+              <SearchInput
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
+              {players && players.length === 0 ? (
+                <h2 className="text-gray-900 dark:text-white text-3xl font-extrabold mb-2 py-5">
+                  Loading Players... 🏀
+                </h2>
+              ) : (
+                <PlayersList filteredPlayers={filteredPlayers} />
+              )}
+            </div>
+          </ColorPickerProvider>
+          <FavoritePlayers />
         </div>
+        <Footer />
       </div>
     </FavoritesProvider>
   );

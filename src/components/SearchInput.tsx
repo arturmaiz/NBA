@@ -1,19 +1,19 @@
 import { ISearchInputProps } from "../types";
-import styles from "../styles/Search.module.css";
 
 const SearchInput: React.FC<ISearchInputProps> = ({
   searchTerm,
   setSearchTerm,
 }) => {
   return (
-    <input
-      className={`form-control mt-3 mb-3 ${styles.search}`}
-      aria-label="Search"
-      type="search"
-      placeholder="Search for a player"
-      value={searchTerm}
-      onChange={(e) => setSearchTerm(e.target.value)}
-    />
+    <div className="w-full">
+      <input
+        type="text"
+        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-2.5 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        placeholder="Search for a player..."
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+    </div>
   );
 };
 

@@ -23,3 +23,12 @@ export interface IFavoritesContextType {
 export interface IFavoritesProviderProps {
   children: React.ReactNode;
 }
+
+export interface ColorPickerProviderProps {
+  children: React.ReactNode;
+}
+
+export interface ColorPickerContextValue {
+  backgroundColor: string;
+  setBackgroundColor: (backgroundColor: string) => void;
+}

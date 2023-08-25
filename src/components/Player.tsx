@@ -2,12 +2,7 @@ import { useContext } from "react";
 import { IPlayer } from "../types";
 import { FavoritesContext } from "../context/FavoritesContext";
 
-const Player: React.FC<IPlayer> = ({
-  id,
-  first_name,
-  last_name,
-  backgroundColor,
-}) => {
+const Player: React.FC<IPlayer> = ({ id, first_name, last_name }) => {
   const favoritesContext = useContext(FavoritesContext);
 
   if (!favoritesContext) {
@@ -21,18 +16,27 @@ const Player: React.FC<IPlayer> = ({
   const isFavorite = favorites.some((fav) => fav.id === id);
 
   return (
-    <li
-      style={{ backgroundColor }}
-      className="d-flex justify-content-between list-group-item"
-    >
-      {`${first_name} ${last_name}`}
-      {isFavorite ? (
-        <span style={{ display: "inline-block", height: "30px" }}>🌟</span>
-      ) : (
-        <button onClick={() => addFavorite({ id, first_name, last_name })}>
-          Add to favorites 📌
-        </button>
-      )}
+    <li className="flex justify-between gap-x-6 py-5 px-5">
+      <div className="flex min-w-0 gap-x-4">
+        <p className="text-gray-900 dark:text-white text-2xl font-extrabold">
+          {`${first_name} ${last_name}`}
+        </p>
+      </div>
+
+      <div className="flex min-w-0 gap-x-4 sm:items-end">
+        <p className="text-sm font-semibold leading-6 text-gray-900">
+          {isFavorite ? (
+            <span className="text-2xl">🏀</span>
+          ) : (
+            <button
+              className="bg-blue-100 text-blue-800 text-1xl font-medium inline-flex items-center justify-center px-2.5 py-0.5 rounded-md dark:bg-gray-700 dark:text-blue-400"
+              onClick={() => addFavorite({ id, first_name, last_name })}
+            >
+              📌
+            </button>
+          )}
+        </p>
+      </div>
     </li>
   );
 };
