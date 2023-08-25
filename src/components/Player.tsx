@@ -5,12 +5,6 @@ import { FavoritesContext } from "../context/FavoritesContext";
 const Player: React.FC<IPlayer> = ({ id, first_name, last_name }) => {
   const favoritesContext = useContext(FavoritesContext);
 
-  if (!favoritesContext) {
-    throw new Error(
-      "Favorited players must be used within a FavoritesProvider"
-    );
-  }
-
   const { favorites, addFavorite } = favoritesContext;
 
   const isFavorite = favorites.some((fav) => fav.id === id);
