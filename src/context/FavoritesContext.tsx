@@ -5,9 +5,14 @@ import {
   IFavoritesProviderProps,
 } from "../types";
 
-export const FavoritesContext = createContext<IFavoritesContextType | null>(
-  null
-);
+const initialContext: IFavoritesContextType = {
+  favorites: [],
+  addFavorite: () => {},
+  removeFavorite: () => {},
+};
+
+export const FavoritesContext =
+  createContext<IFavoritesContextType>(initialContext);
 
 const FavoritesProvider: React.FC<IFavoritesProviderProps> = ({ children }) => {
   const [favorites, setFavorites] = useState<IPlayer[]>(() => {
@@ -19,17 +24,11 @@ const FavoritesProvider: React.FC<IFavoritesProviderProps> = ({ children }) => {
   }, [favorites]);
 
   const addFavorite = (player: IPlayer) => {
-    const currentFavorites: IPlayer[] = JSON.parse(
-      localStorage.getItem("favorites") || "[]"
-    );
+    const playerExists = favorites.some((fav) => fav.id === player.id);
 
-    const playerExists = currentFavorites.some((fav) => fav.id === player.id);
-
-    if (playerExists) return;
-
-    const updatedFavorites = [...currentFavorites, player];
-    localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-    setFavorites(updatedFavorites);
+    if (!playerExists) {
+      setFavorites((prev) => [...prev, player]);
+    }
   };
 
   const removeFavorite = (id: number) => {
