@@ -52,7 +52,7 @@ const App = () => {
         <Header />
         <div className="grid md:grid-cols-2 gap-8">
           <ColorPickerProvider>
-            <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 md:p-12 max-h-[627px] overflow-y-auto">
+            <div className="bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-4 md:p-12">
               <ColorPicker />
               <SearchInput
                 searchTerm={searchTerm}

@@ -15,7 +15,10 @@ const PlayersList: React.FC<IPlayersListProps> = ({ filteredPlayers }) => {
   const { backgroundColor } = favoritesContext;
 
   return (
-    <ul style={{ backgroundColor }} className={`divide-y divide-gray-100 mt-4`}>
+    <ul
+      style={{ backgroundColor }}
+      className={`divide-y divide-gray-100 mt-4 h-[420px] overflow-y-auto`}
+    >
       {filteredPlayers && filteredPlayers.length > 0 ? (
         filteredPlayers.map((player) => <Player key={player?.id} {...player} />)
       ) : (
