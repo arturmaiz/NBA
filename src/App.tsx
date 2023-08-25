@@ -31,19 +31,18 @@ const App = () => {
   }, []);
 
   const filterPlayersBySearchTerm = useCallback((): IPlayer[] => {
-    return players.filter(
-      (player) =>
-        doesNameIncludeTerm(player.first_name, searchTerm) ||
-        doesNameIncludeTerm(player.last_name, searchTerm)
-    );
+    return players.filter((player) => {
+      const fullName = `${player.first_name} ${player.last_name}`;
+      return isIncludeTerm(fullName, searchTerm);
+    });
   }, [players, searchTerm]);
 
   useEffect(() => {
     setFilteredPlayers(filterPlayersBySearchTerm());
   }, [searchTerm, players, filterPlayersBySearchTerm]);
 
-  const doesNameIncludeTerm = (name: string, term: string): boolean => {
-    return name.toLowerCase().includes(term.toLowerCase());
+  const isIncludeTerm = (name: string, term: string): boolean => {
+    return name.trim().toLowerCase().includes(term.trim().toLowerCase());
   };
 
   return (
