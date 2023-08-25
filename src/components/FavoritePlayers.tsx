@@ -5,12 +5,6 @@ import FavoritePlayer from "./FavoritePlayer";
 const FavoritePlayers: React.FC = () => {
   const favoritesContext = useContext(FavoritesContext);
 
-  if (!favoritesContext) {
-    throw new Error(
-      "Favorited players must be used within a FavoritesProvider"
-    );
-  }
-
   const { favorites } = favoritesContext;
 
   return (

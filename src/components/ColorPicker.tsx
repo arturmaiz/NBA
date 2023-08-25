@@ -1,14 +1,11 @@
 import { useContext } from "react";
 import { ColorPickerContext } from "../context/ColorPickerContext";
+import { IColorPickerContextValue } from "../types";
 
 const ColorPicker = () => {
-  const favoritesContext = useContext(ColorPickerContext);
-
-  if (!favoritesContext) {
-    throw new Error(
-      "Favorited players must be used within a FavoritesProvider"
-    );
-  }
+  const favoritesContext = useContext(
+    ColorPickerContext
+  ) as IColorPickerContextValue;
 
   const { backgroundColor, setBackgroundColor } = favoritesContext;
 
