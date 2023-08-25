@@ -11,38 +11,45 @@ import Header from "./components/Header";
 
 const URL = "https://www.balldontlie.io/api/v1/players";
 
+const fetchPlayersData = async () => {
+  try {
+    const response = await fetch(URL);
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.error("Failed to fetch players:", error);
+    return [];
+  }
+};
+
 const App = () => {
   const [players, setPlayers] = useState<IPlayer[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredPlayers, setFilteredPlayers] = useState<IPlayer[]>([]);
 
   useEffect(() => {
-    const fetchPlayers = async () => {
-      try {
-        const response = await fetch(URL);
-        const data = await response.json();
-        setPlayers(data.data);
-      } catch (error) {
-        console.error("Failed to fetch players:", error);
-      }
+    const initializePlayers = async () => {
+      const playersData = await fetchPlayersData();
+      setPlayers(playersData);
     };
 
-    fetchPlayers();
+    initializePlayers();
   }, []);
 
-  const filterPlayersBySearchTerm = useCallback((): IPlayer[] => {
+  const filterBySearchTerm = useCallback(() => {
     return players.filter((player) => {
       const fullName = `${player.first_name} ${player.last_name}`;
-      return isIncludeTerm(fullName, searchTerm);
+      return includesTerm(fullName, searchTerm);
     });
   }, [players, searchTerm]);
 
   useEffect(() => {
-    setFilteredPlayers(filterPlayersBySearchTerm());
-  }, [searchTerm, players, filterPlayersBySearchTerm]);
+    const filtered = filterBySearchTerm();
+    setFilteredPlayers(filtered);
+  }, [searchTerm, players, filterBySearchTerm]);
 
-  const isIncludeTerm = (name: string, term: string): boolean => {
-    return name.trim().toLowerCase().includes(term.trim().toLowerCase());
+  const includesTerm = (name: string, term: string): boolean => {
+    return name.toLowerCase().includes(term.toLowerCase());
   };
 
   return (
