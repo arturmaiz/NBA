@@ -4,7 +4,7 @@ export const fetchData = async (url = "") => {
     const data = await response.json();
     return data.data;
   } catch (error) {
-    console.error("Failed to fetch players:", error);
+    console.error("Failed to fetch:", error);
     return [];
   }
 };
