@@ -1,18 +1,14 @@
-import Player from "./Player";
-import { IPlayersListProps } from "../types";
 import { useContext } from "react";
+import Player from "./Player";
+import { IPlayersListProps, IColorPickerContextValue } from "../types";
 import { ColorPickerContext } from "../context/ColorPickerContext";
 
 const PlayersList: React.FC<IPlayersListProps> = ({ filteredPlayers }) => {
-  const favoritesContext = useContext(ColorPickerContext);
+  const colorPickerContext = useContext(
+    ColorPickerContext
+  ) as IColorPickerContextValue;
 
-  if (!favoritesContext) {
-    throw new Error(
-      "Favorited players must be used within a FavoritesProvider"
-    );
-  }
-
-  const { backgroundColor } = favoritesContext;
+  const { backgroundColor } = colorPickerContext;
 
   return (
     <ul

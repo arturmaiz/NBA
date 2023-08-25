@@ -1,11 +1,10 @@
 import { createContext, useState } from "react";
-import { ColorPickerContextValue, ColorPickerProviderProps } from "../types";
+import { IColorPickerContextValue, IColorPickerProviderProps } from "../types";
 
-export const ColorPickerContext = createContext<ColorPickerContextValue | null>(
-  null
-);
+export const ColorPickerContext =
+  createContext<IColorPickerContextValue | null>(null);
 
-const ColorPickerProvider: React.FC<ColorPickerProviderProps> = ({
+const ColorPickerProvider: React.FC<IColorPickerProviderProps> = ({
   children,
 }) => {
   const [backgroundColor, setBackgroundColor] = useState("#1f2937");
